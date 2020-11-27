@@ -26,4 +26,5 @@ update 27.11.2020
 - added CKEditor support
 - fix for multiple CKEditor instances
 - added minified JavaScript
+- added german translation
 
