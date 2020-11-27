@@ -1,10 +1,10 @@
 {
-  "name": "WapplerSystems/Shyguy",
+  "name": "wapplersystems/shyguy",
   "type": "typo3-cms-extension",
   "description": "Adds visualisation and control over soft hyphens in content elements.",
   "license": "GPL-2.0+",
   "keywords": [
-    "typo3",
+    "TYPO3",
     "TYPO3 CMS",
     "Hyphen",
     "Soft Hyphen"
