@@ -1,32 +1,59 @@
-require(["jquery"], function($) {
+require(["jquery","ckeditor"], function($) {
     $(document).ready(function() {
 
-        // Insert ↵ glyph to active element by clicking (does not work for ckeditor yet)
+        // Insert ↵ glyph to active element by clicking
         if($('a[href="#insertSoftHyphen"]').length){
             $('a[href="#insertSoftHyphen"]').on('mousedown', function(e){
                 e.preventDefault();
 
-                var activeElement = document.activeElement;
-                var $activeElement = $(activeElement);
-                var activeElementRange = getCaretPosition(activeElement);
+                let activeElement = document.activeElement;
+                let $activeElement = $(activeElement);
+                let activeCKEDITOR;
 
-                $activeElement.val(replaceRange($activeElement.val(), activeElementRange['start'], activeElementRange['end'], '↵'));
-                $activeElement.change();
-                $activeElement.keyup();
+                // Get the active CKEditor
+                for (let ckInstance in CKEDITOR.instances){
+                    if($activeElement.closest('.form-wizards-element #' + $(CKEDITOR.instances[ckInstance].container).attr('id')).length){
+                        activeCKEDITOR = CKEDITOR.instances[ckInstance].dataProcessor.editor;
+                    }
+                }
 
+                // CKEditor source mode works native, so get the other(s) or use natvie behavior instead
+                if(activeCKEDITOR && activeCKEDITOR.mode !== "source" && activeCKEDITOR.focusManager.hasFocus === true){
+                    activeCKEDITOR.insertText('↵');
+                }else{
+                    let activeElementRange = getCaretPosition(activeElement);
+
+                    $activeElement.val(replaceRange($activeElement.val(), activeElementRange['start'], activeElementRange['end'], '↵'));
+                    $activeElement.change();
+                    $activeElement.keyup();
+                }
             });
         }
-        // Replace Existing ↵ with &shy; glyph in plain text, input fields and text areas
-        $('body :not(script)').contents().filter(function() {
-            return this.nodeType === 3;
-        }).replaceWith(function() {
-            return this.nodeValue.replace(/(\­)/gi, "↵");
-        });
-        $('input, textarea').each(function(){
-           $(this).val($(this).val().replace(/(\­)/gi, "↵"));
+
+        replaceDomGlyphes();
+
+        CKEDITOR.on( 'instanceReady', function( evt ) {
+
+            evt.editor.setData(evt.editor.getData().replace(/(\&shy;|\­)/gi, "↵"));
+
         });
 
     });
+
+    // Replace Existing ↵ with &shy; glyph in plain text, input fields and text areas
+    function replaceDomGlyphes(){
+
+        $('body :not(script,textarea), body textarea[id^="formengine-textarea-"]').contents().filter(function() {
+            return this.nodeType === 3;
+        }).replaceWith(function() {
+            return this.nodeValue.replace(/(\&shy;|\­)/gi, "↵");
+        });
+
+        $('input, .form-wizards-element textarea[id^="formengine-textarea-"]').each(function(){
+            $(this).val($(this).val().replace(/(\&shy;|\­)/gi, "↵"));
+        });
+    }
+
 });
 
 function getCaretPosition(ctrl) {
