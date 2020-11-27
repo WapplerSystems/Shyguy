@@ -1,11 +1,11 @@
 # Shy Guy - Soft Hyphen Managing
 
-Adds visualisation and control over soft hyphens in content elements.
+Adds visualisation and control over soft hyphens in content elements to TYPO3.
 
 ## What does it do?
 
 Ever wondered how to force very long words to break into the next line if space gets too narrow?
-This Extension adds an "insert soft hyphen" Button into the button bar at the top (next to save, view, eg.).
+This Extension adds an "insert soft hyphen" Button into the button bar at the top (next to save, view, eg. in content editing view).
 
 ## How to install
 
