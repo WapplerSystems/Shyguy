@@ -14,6 +14,9 @@ No configuration is needed.
 
 ## How does it work
 Within a content element, a soft hyphen is set at the caret position if you click the button.
-Sadly the insertion via button does not work inside the ckeditor yet, but you can manually copy the ↵ character into it.
-This should work.
+
+## Changelog
+update 27.11.2020
+- added CKEditor support
+- fix for multiple CKEditor instances
 
