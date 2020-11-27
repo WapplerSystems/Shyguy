@@ -10,7 +10,7 @@ if (TYPO3_MODE=="BE" )   {
 //        'function() { console.log("Yeah!!!");}'
 //    );
 //    $pageRenderer->addJsFile('EXT:shyguy/Resources/Public/Javascript/Shyguy.js', 'text/javascript', true, false, '', true,  '|', false, '');
-    $pageRenderer->addJsFile('EXT:shyguy/Resources/Public/Javascript/Shyguy.js', 'text/javascript');
+    $pageRenderer->addJsFile('EXT:shyguy/Resources/Public/Javascript/Shyguy.min.js', 'text/javascript');
 }
 
 $pngIcons = [
