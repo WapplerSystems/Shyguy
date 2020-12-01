@@ -47,5 +47,3 @@ Class ShyGuyHook
 		return $GLOBALS['LANG'];
 	}
 }
-
-//↵

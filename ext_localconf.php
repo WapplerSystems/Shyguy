@@ -5,11 +5,6 @@ if (!defined ('TYPO3_MODE')) {
 
 if (TYPO3_MODE=="BE" )   {
     $pageRenderer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
-//    $pageRenderer->loadRequireJsModule(
-//        'TYPO3/CMS/Shyguy/Shyguy',
-//        'function() { console.log("Yeah!!!");}'
-//    );
-//    $pageRenderer->addJsFile('EXT:shyguy/Resources/Public/Javascript/Shyguy.js', 'text/javascript', true, false, '', true,  '|', false, '');
     $pageRenderer->addJsFile('EXT:shyguy/Resources/Public/Javascript/Shyguy.min.js', 'text/javascript');
 }
 
