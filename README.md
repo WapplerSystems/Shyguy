@@ -22,9 +22,20 @@ Feel free to make a pull request, explain the issue on https://github.com/Wapple
 
 ## Changelog
 
+<i>(Dates have [dd.mm.yy] format)</i>
+
+<br><br>
+<b><u>Version 1.0.1 beta:</u></b>
+
+update 02.12.2020
+- fixed some flexform problems
+
+___
+
 update 27.11.2020
 - added CKEditor support
 - fix for multiple CKEditor instances
 - added minified JavaScript
 - added german translation
+
 

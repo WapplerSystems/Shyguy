@@ -11,7 +11,7 @@ class TCEmainHook {
      * @param $parentObject \TYPO3\CMS\Core\DataHandling\DataHandler
      */
     public function processDatamap_preProcessFieldArray(&$fieldArray, $table, $id, $parentObject){
-        array_walk($fieldArray, array($this, 'makeRealSoftHyphens'));
+        array_walk_recursive($fieldArray, array($this, 'makeRealSoftHyphens'));
     }
 
     public function makeRealSoftHyphens(&$value, $key){
