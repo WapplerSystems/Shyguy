@@ -27,6 +27,11 @@ Feel free to make a pull request, explain the issue on https://github.com/Wapple
 <br><br>
 <b><u>Version 1.0.1 beta:</u></b>
 
+update 26.03.2021
+- merged a pull request from Albrecht Köhnlein, which fixes a bug that generated HTML instead of plain text.
+
+___
+
 update 02.12.2020
 - fixed some flexform problems
 
