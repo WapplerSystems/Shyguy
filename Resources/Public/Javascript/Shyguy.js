@@ -46,7 +46,9 @@ require(["jquery","ckeditor"], function($) {
         $('body :not(script,textarea), body textarea[id^="formengine-textarea-"]').contents().filter(function() {
             return this.nodeType === 3;
         }).replaceWith(function() {
-            return this.nodeValue.replace(/(\&shy;|\­)/gi, "↵");
+            return this.nodeValue.replace(/(\&shy;|\­)/gi, "↵").replace(/[\u00A0-\u9999<>\&]/g, function (i) {
+                return '&#' + i.charCodeAt(0) + ';';
+            });
         });
 
         $('input, .form-wizards-element textarea[id^="formengine-textarea-"]').each(function(){
