@@ -21,7 +21,7 @@
     "source": "https://github.com/WapplerSystems/Shyguy"
   },
   "require": {
-    "typo3/cms-core": " ^9.5 || ^10.0 || 10.*@dev"
+    "typo3/cms-core": " ^9.5 || ^10.0 || 10.*@dev || ^11.0 || 11.*@dev"
   },
   "autoload": {
     "psr-4": {
