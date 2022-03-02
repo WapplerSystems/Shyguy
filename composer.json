@@ -1,36 +1,36 @@
 {
-  "name": "wapplersystems/shyguy",
-  "type": "typo3-cms-extension",
-  "description": "Adds visualisation and control over soft hyphens in content elements.",
-  "license": "GPL-2.0+",
-  "keywords": [
-    "TYPO3",
-    "TYPO3 CMS",
-    "Hyphen",
-    "Soft Hyphen"
-  ],
-  "homepage": "https://github.com/WapplerSystems/Shyguy",
-  "authors": [
-    {
-      "name": "Patrik Tschersich",
-      "email": "tschersich@wappler.systems"
-    }
-  ],
-  "support": {
-    "issues": "https://github.com/WapplerSystems/Shyguy/issues",
-    "source": "https://github.com/WapplerSystems/Shyguy"
-  },
-  "require": {
-    "typo3/cms-core": " ^9.5 || ^10.0 || 10.*@dev || ^11.0 || 11.*@dev"
-  },
-  "autoload": {
-    "psr-4": {
-      "WapplerSystems\\Shyguy\\": "Classes/"
-    }
-  },
-  "extra": {
-    "typo3/cms": {
-      "extension-key": "shyguy"
-    }
-  }
+	"name": "wapplersystems/shyguy",
+	"type": "typo3-cms-extension",
+	"description": "Adds visualisation and control over soft hyphens in content elements.",
+	"license": "GPL-2.0+",
+	"keywords": [
+		"TYPO3",
+		"TYPO3 CMS",
+		"Hyphen",
+		"Soft Hyphen"
+	],
+	"homepage": "https://github.com/WapplerSystems/Shyguy",
+	"authors": [
+		{
+			"name": "Patrik Tschersich",
+			"email": "tschersich@wappler.systems"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/WapplerSystems/Shyguy/issues",
+		"source": "https://github.com/WapplerSystems/Shyguy"
+	},
+	"require": {
+		"typo3/cms-core": " ^9.5 || ^10.0 || 10.*@dev || ^11.0 || 11.*@dev"
+	},
+	"autoload": {
+		"psr-4": {
+			"WapplerSystems\\Shyguy\\": "Classes/"
+		}
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "shyguy"
+		}
+	}
 }

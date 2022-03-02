@@ -2,7 +2,11 @@
 
 namespace WapplerSystems\Shyguy\Hooks;
 
+use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\Template\Components\Buttons\InputButton;
+use TYPO3\CMS\Core\Imaging\Icon;
+use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -11,39 +15,41 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * Class ShyGuyHook
  * @package WapplerSystems\Shyguy\Hooks
  */
-Class ShyGuyHook
+class ShyGuyHook
 {
     /**
      * @param array $params
      * @param $buttonBar
      * @return array
      */
-    public function addSoftHyphenInitial($params, &$buttonBar)
+    public function addSoftHyphenInitial($params, &$buttonBar): array
     {
         $buttons = $params['buttons'];
-        $saveButton = $buttons[\TYPO3\CMS\Backend\Template\Components\ButtonBar::BUTTON_POSITION_LEFT][2][0];
+        $saveButton = $buttons[ButtonBar::BUTTON_POSITION_LEFT][2][0];
 
-        if($saveButton instanceof InputButton && $saveButton->getName() === '_savedok'){
-            $iconFactory = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconFactory::class);
+        if ($saveButton instanceof InputButton && $saveButton->getName() === '_savedok') {
+            $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
 
             $insertSoftHyphen = $buttonBar->makeLinkButton()
                 ->setHref('#insertSoftHyphen')
                 ->setTitle($this->getLanguageService()->sL('LLL:EXT:shyguy/Resources/Private/Language/locallang.xlf:set_hyphen'))
-                ->setIcon($iconFactory->getIcon('insert-soft-hyphen', \TYPO3\CMS\Core\Imaging\Icon::SIZE_SMALL))
+                ->setIcon($iconFactory->getIcon('insert-soft-hyphen', Icon::SIZE_SMALL))
                 ->setShowLabelText(true);
 
-            $buttons[\TYPO3\CMS\Backend\Template\Components\ButtonBar::BUTTON_POSITION_LEFT][7][] = $insertSoftHyphen;
+            $pos = max(array_keys($buttons[ButtonBar::BUTTON_POSITION_LEFT])) + 1;
+            $buttons[ButtonBar::BUTTON_POSITION_LEFT][$pos][] = $insertSoftHyphen;
+
         }
 
         return $buttons;
     }
-    
+
     /**
-	 * Returns the language service
-	 * @return LanguageService
-	 */
-	protected function getLanguageService()
-	{
-		return $GLOBALS['LANG'];
-	}
+     * Returns the language service
+     * @return LanguageService
+     */
+    protected function getLanguageService(): LanguageService
+    {
+        return $GLOBALS['LANG'];
+    }
 }

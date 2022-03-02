@@ -25,6 +25,15 @@ Feel free to make a pull request, explain the issue on https://github.com/Wapple
 <i>(Dates have [dd.mm.yy] format)</i>
 
 <br><br>
+
+<b><u>Version 1.0.6 beta:</u></b>
+
+update 02.03.2022
+
+- made the extension work with TYPO3 11 and composer
+- reformatted and cleaned code
+- made button position dynamic to prevent possible incompatibilities to other extensions
+
 <b><u>Version 1.0.1 beta:</u></b>
 
 update 26.03.2021
