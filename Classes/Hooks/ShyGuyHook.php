@@ -25,7 +25,7 @@ class ShyGuyHook
     public function addSoftHyphenInitial($params, &$buttonBar): array
     {
         $buttons = $params['buttons'];
-        $saveButton = $buttons[ButtonBar::BUTTON_POSITION_LEFT][2][0];
+        $saveButton = $buttons[ButtonBar::BUTTON_POSITION_LEFT][2][0] ?? null;
 
         if ($saveButton instanceof InputButton && $saveButton->getName() === '_savedok') {
             $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
