@@ -1,89 +1,72 @@
-require(["jquery","ckeditor"], function($) {
-    $(document).ready(function() {
+class InsertSoftHyphenHandler {
+  constructor() {
+    this.btnInsertShy = document.querySelector("a[href=\"#insertSoftHyphen\"]");
 
-        // Insert ↵ glyph to active element by clicking
-        if($('a[href="#insertSoftHyphen"]').length){
-            $('a[href="#insertSoftHyphen"]').on('mousedown', function(e){
-                e.preventDefault();
+    this.init();
+  }
 
-                let activeElement = document.activeElement;
-                let $activeElement = $(activeElement);
-                let activeCKEDITOR;
+  /**
+   * @return {InsertSoftHyphenHandler}
+   */
+  init() {
+    if (this.btnInsertShy) {
+      this.btnInsertShy.addEventListener("mousedown", this.handleInsertShyClick.bind(this));
+    }
 
-                // Get the active CKEditor
-                for (let ckInstance in CKEDITOR.instances){
-                    if($activeElement.closest('.form-wizards-element #' + $(CKEDITOR.instances[ckInstance].container).attr('id')).length){
-                        activeCKEDITOR = CKEDITOR.instances[ckInstance].dataProcessor.editor;
-                    }
-                }
+    this.replaceDomGlyphes();
 
-                // CKEditor source mode works native, so get the other(s) or use natvie behavior instead
-                if(activeCKEDITOR && activeCKEDITOR.mode !== "source" && activeCKEDITOR.focusManager.hasFocus === true){
-                    activeCKEDITOR.insertText('↵');
-                }else{
-                    let activeElementRange = getCaretPosition(activeElement);
+    return this;
+  }
 
-                    $activeElement.val(replaceRange($activeElement.val(), activeElementRange['start'], activeElementRange['end'], '↵'));
-                    $activeElement.change();
-                    $activeElement.keyup();
-                }
-            });
-        }
+  /**
+   * Handle insert soft-hyphen button click
+   * https://ckeditor.com/docs/ckeditor5/latest/examples/how-tos.html#how-to-get-the-editor-instance-object-from-the-dom-element
+   */
+  handleInsertShyClick(event) {
+    event.preventDefault();
 
-        replaceDomGlyphes();
+    let activeElement = document.activeElement;
+    const domEditableElement = document.querySelector(".ck-editor__editable_inline");
+    const editorInstance = domEditableElement.ckeditorInstance;
 
-        CKEDITOR.on( 'instanceReady', function( evt ) {
+    if (editorInstance.editing.view.document.isFocused === true) {
+      editorInstance.execute("insertText", { text: "­" });
+      editorInstance.editing.view.focus();
+    } else if (activeElement.tagName.toLowerCase() === "input" || activeElement.tagName.toLowerCase() === "textarea") {
+      let activeElementRange = this.getCaretPosition(activeElement);
 
-            evt.editor.setData(evt.editor.getData().replace(/(\&shy;|\­)/gi, "↵"));
+      activeElement.value = this.replaceRange(activeElement.value, activeElementRange["start"], activeElementRange["end"], "↵");
+      activeElement.dispatchEvent(new Event("change", { "bubbles": true }));
+      activeElement.dispatchEvent(new Event("keyup", { "bubbles": true }));
+    }
+  }
 
-        });
-
+  /**
+   * Replace Existing ↵ with &shy; glyph in input fields and text areas
+   */
+  replaceDomGlyphes() {
+    const elements = document.querySelectorAll("input, .form-wizards-element textarea[id^=\"formengine-textarea-\"]");
+    elements.forEach(function(element) {
+      element.value = element.value.replace(/(\&shy;|\­)/gi, "↵");
     });
+  }
 
-    // Replace Existing ↵ with &shy; glyph in plain text, input fields and text areas
-    function replaceDomGlyphes(){
+  /**
+   * Get caret position
+   */
+  getCaretPosition(ctrl) {
+    return {
+      "start": ctrl.selectionStart ?? 0,
+      "end": ctrl.selectionEnd ?? 0
+    };
+  }
 
-        $('body :not(script,textarea), body textarea[id^="formengine-textarea-"]').contents().filter(function() {
-            return this.nodeType === 3;
-        }).replaceWith(function() {
-            return this.nodeValue.replace(/(\&shy;|\­)/gi, "↵").replace(/[\u00A0-\u9999<>\&]/g, function (i) {
-                return '&#' + i.charCodeAt(0) + ';';
-            });
-        });
-
-        $('input, .form-wizards-element textarea[id^="formengine-textarea-"]').each(function(){
-            $(this).val($(this).val().replace(/(\&shy;|\­)/gi, "↵"));
-        });
-    }
-
-});
-
-function getCaretPosition(ctrl) {
-    // IE < 9 Support
-    if (document.selection) {
-        ctrl.focus();
-        var range = document.selection.createRange();
-        var rangelen = range.text.length;
-        range.moveStart('character', -ctrl.value.length);
-        var start = range.text.length - rangelen;
-        return {
-            'start': start,
-            'end': start + rangelen
-        };
-    } // IE >=9 and other browsers
-    else if (ctrl.selectionStart || ctrl.selectionStart == '0') {
-        return {
-            'start': ctrl.selectionStart,
-            'end': ctrl.selectionEnd
-        };
-    } else {
-        return {
-            'start': 0,
-            'end': 0
-        };
-    }
-}
-
-function replaceRange(s, start, end, substitute) {
+  /**
+   * @return {InsertSoftHyphenHandler}
+   */
+  replaceRange(s, start, end, substitute) {
     return s.substring(0, start) + substitute + s.substring(end);
+  }
 }
+
+export default new InsertSoftHyphenHandler();

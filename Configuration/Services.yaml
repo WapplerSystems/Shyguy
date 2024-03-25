@@ -1,0 +1,13 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  WapplerSystems\Shyguy\:
+    resource: '../Classes/*'
+
+  WapplerSystems\Shyguy\EventListener\ShyguyButtonBar:
+    tags:
+      - name: event.listener
+        identifier: 'shyguy/button-bar'
